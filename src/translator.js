@@ -1,44 +1,49 @@
+/*global require*/
 var Lexer = require("./lexer");
 
-function Lambda2PiTranslator(){
-  this.lexer = new Lexer();
-  this.lexer.addRule("LAMBDA",/L/);
-  this.lexer.addRule("DOT",/\./);
-  this.lexer.addRule("START_PAREN",/\(/);
-  this.lexer.addRule("END_PAREN",/\)/);
-  this.lexer.addRule("VARIABLE",/[a-z][a-z0-9]*/);
-  this.lexer.addRule("STAND_IN",/[A-KM-Z]+/);
+function Lambda2PiTranslator() {
+    'use strict';
+    this.lexer = new Lexer();
+    this.lexer.addRule("LAMBDA", /L/);
+    this.lexer.addRule("DOT", /\./);
+    this.lexer.addRule("START_PAREN", /\(/);
+    this.lexer.addRule("END_PAREN", /\)/);
+    this.lexer.addRule("VARIABLE", /[a-z][a-z0-9]*/);
+    this.lexer.addRule("STAND_IN", /[A-KM-Z]+/);
 
-  this.str = null;
-  this.tokens = null;
-  this.index = 0;
+    this.str = null;
+    this.tokens = null;
+    this.index = 0;
 }
 
-Lambda2PiTranslator.prototype.throwError = function(msg){
-  msg = msg || "Invalid lambda expression.";
-  throw {
-    type:"TranslatorError",
-    message:msg
-  }
-}
-
-Lambda2PiTranslator.prototype.expect = function(name){
-  var actual = this.tokens[ this.index ];
-  if(!actual){
-    this.throwError();
-  }
-  if(actual.name != name){
-    this.throwError(["Expected '",name,"', got '",actual.name,"'"].join(" "));
-  }
-  //console.log( this.getTokenValue() );
-  this.index++;
+Lambda2PiTranslator.prototype.throwError = function (msg) {
+    'use strict';
+    msg = msg || "Invalid lambda expression.";
+    throw {
+        type: "TranslatorError",
+        message: msg
+    };
 };
 
-Lambda2PiTranslator.prototype.peek = function(){
-  return this.tokens[ this.index ];
+Lambda2PiTranslator.prototype.expect = function (name) {
+    'use strict';
+    var actual = this.tokens[this.index];
+    if (!actual) {
+        this.throwError();
+    }
+    if (actual.name != name) {
+        this.throwError(["Expected '", name, "', got '", actual.name, "'"].join(" "));
+    }
+    //console.log( this.getTokenValue() );
+    this.index += 1;
+};
+
+Lambda2PiTranslator.prototype.peek = function () {
+    'use strict';
+    return this.tokens[ this.index ];
 }
 
-Lambda2PiTranslator.prototype.getTokenValue = function(){
+Lambda2PiTranslator.prototype.getTokenValue = function () {
   var token = this.tokens[this.index];
   if(!token){
     this.throwError("Invalid lambda expression.");

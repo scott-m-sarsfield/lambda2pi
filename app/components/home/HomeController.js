@@ -1,3 +1,5 @@
+/*global app, $scope, Lambda2PiTranslator */
+
 app.controller('HomeController', ['$scope', 'HomeService', function ($scope, HomeService) {
     "use strict";
 
@@ -7,8 +9,8 @@ app.controller('HomeController', ['$scope', 'HomeService', function ($scope, Hom
     $scope.myOutput = "";
     $scope.myColor = "black";
     
-    $scope.$watch('myInput', function() {
-        $scope.interpretation = $scope.myInput.replace(/L/g,"λ");
+    $scope.$watch('myInput', function () {
+        $scope.interpretation = $scope.myInput.replace(/L/g, "λ");
         try {
             $scope.myOutput = translator.translate($scope.myInput);
             $scope.myColor = "black";
