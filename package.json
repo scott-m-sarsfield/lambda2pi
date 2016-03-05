@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify index.js -o dist/lambda2pi.js",
+    "build-debug": "browserify -d index.js -o dist/lambda2pi.js"
   },
   "author": "Scott Sarsfield<scott.m.sarsfield@gmail.com>",
   "license": "UNLICENSED",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^13.0.0"
+  }
 }
