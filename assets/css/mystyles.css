@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+h1, h2, h3, h4, h5, h6, p, div {
+    font-family: 'Open Sans';
+}
+
+.navbar {
+    border-radius: 0px;
+}
+
+.italics {
+    font-style: italic;
+}
+
+.lambda {
+    font-family: Times, serif;
+}
