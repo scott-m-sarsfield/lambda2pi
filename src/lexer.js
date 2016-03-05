@@ -14,7 +14,7 @@ Lexer.prototype.addRule = function (name, regex) {
 Lexer.prototype.lex = function (str) {
     'use strict';
     var i,
-        res = new Array(),
+        res = [],
         regex = this.rules[i],
         match = null,
         temp = str,
@@ -22,7 +22,7 @@ Lexer.prototype.lex = function (str) {
         indOffset,
         obj = {};
     for (i in this.rules) {
-        while ((match = temp.match(regex)) != null) {
+        while ((match = temp.match(regex)) !== null) {
             //console.log("hit =",match);
             indOffset = ind + match.index;
             ind += match.index + match[0].length;
