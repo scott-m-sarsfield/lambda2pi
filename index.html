@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>L2P</title>
+    <style>
+      body{
+        background: #f93;
+        color:black;
+        font-family: Arial,sans-serif;;
+      }
+      .container{
+        background:white;
+        padding:1em;
+        border-radius: 1em;
+      }
+      .app-title{
+        margin:0;
+      }
+      .app-descr{
+        font-style:italic;
+        color:#333;
+      }
+
+      #myInput{
+        width:100%;
+        font-family: Courier,monospace;
+      }
+
+      #interpretation{
+        font-size: 1.5em;
+        font-style: italic;
+      }
+
+      #myOutput{
+        display:block;
+        border:solid 1px black;
+        min-height: 20px;
+        padding:1em;
+        font-family: Courier,monospace;
+      }
+      .lambda{
+        font-family:Times, serif;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class='app-title'>Lambda2Pi</h1>
+      <h4 class="app-descr">
+        Translates lambda calculus expressions to pi calculus expresssions
+      </h4>
+      <h4>Lambda <span class='lambda'>&#955;</span> Expression</h4>
+      <input id="myInput" type="text" onkeyup="refreshOutput()" />
+      <h4>Interpretation</h4>
+      <span id="interpretation"></span>
+      <h4>Pi Expression</h4>
+      <span id="myOutput"></span>
+    </div>
+
+
+
+    <!--scripts-->
+    <script src="dist/lambda2pi.js"></script>
+    <script>
+      var translator = null;
+      window.onload = function(){
+        translator = new Lambda2PiTranslator();
+        refreshOutput();
+      };
+
+      function refreshOutput(){
+        var input = document.getElementById('myInput').value;
+        var interpElm = document.getElementById('interpretation');
+
+        var interpHtml =input.replace(/L/g,"<span class='lambda'>&#955;</lambda>");
+        interpElm.innerHTML = interpHtml;
+
+        var outElm = document.getElementById('myOutput')
+        var res;
+        try{
+          res = translator.translate(input);
+          outElm.style.color = "black";
+        }catch(e){
+          if(e.type=="TranslatorError"){
+            res = e.message;
+            outElm.style.color = "red";
+          }
+          else{
+            throw e;
+          }
+        }
+        outElm.innerHTML = res;
+      }
+    </script>
+  </body>
+</html>
