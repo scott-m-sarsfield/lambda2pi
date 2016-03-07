@@ -16,7 +16,7 @@
         ].forEach(function(src) {
             var script = document.createElement('script');
             script.src = src;
-            script.async = false; 
+            script.async = false;
             document.head.appendChild(script);
         });
     </script>
@@ -37,10 +37,10 @@
     </nav>
     <div class="container-fluid">
         <h1>Lambda2Pi</h1>
-        
 
 
-        
+
+
         <h4 class="italics">Translates lambda calculus expressions to pi calculus expresssions</h4>
         <hr />
         <h4>Rules</h4>
@@ -65,6 +65,33 @@
             <div class="panel-heading">Pi Expression</div>
             <div class="panel-body"><span ng-style="myColor">{{ myOutput }}</span></div>
         </div>
+        <hr />
+        <h4>Translation Guide</h4>
+        <span>Rules are in form</span>
+        <span>[</span>
+        <span class="replaceable">&lt;lambda_expression&gt;</span>
+        <span>](</span>
+        <span class="replaceable">&lt;channel&gt;</span>
+        <span>) &#8594; </span>
+        <span class="replaceable">&lt;pi_expression&gt;</span>
+        <span>. Variables and channels are lowercase.<span>
+        <ul>
+            <li>
+              <span>
+                [ <span class='lambda'>&#955;</span> x . M ]( p ) &#8594; p?x.p?q.[ M ]( q )
+              <span>
+            </li>
+            <li>
+              <span>
+                [ x ]( p ) &#8594; x!p
+              <span>
+            </li>
+            <li>
+              <span>
+                [ M N ]( p ) &#8594; new(a).new(b).(([ M ]( a )) | (a!b.a!p) | *((b?c).[ N ]( c )))
+              <span>
+            </li>
+        </ul>
     </div>
 </body>
 </html>
